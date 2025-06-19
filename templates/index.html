@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gurney Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>“Mood? What's mood got to do with it?”</h1>
+    <p>Replace <code>fight</code> with:</p>
+
+	<img src="{{ url_for('static', filename='banner.png') }}" alt="">
+    <input type="text" id="word" placeholder="e.g. vibe">
+    <div class="preset-buttons">
+      <button onclick="preset('lock-in')">lock-in</button>
+      <button onclick="preset('grind')">grind</button>
+      <button onclick="preset('ascend')">ascend</button>
+    </div>
+    <button id="generate" onclick="sendRequest()">Generate</button>
+
+    <p id="status"></p>
+    <video id="result" controls style="display:none; width: 480px;"></video>
+  </div>
+
+  <script>
+    function preset(word) {
+      document.getElementById('word').value = word;
+    }
+
+    async function sendRequest() {
+      const word = document.getElementById('word').value;
+      const status = document.getElementById('status');
+      const video = document.getElementById('result');
+
+      if (!word) {
+        status.innerText = "Enter a word, genius.";
+        return;
+      }
+
+      status.innerText = "Processing...";
+      video.style.display = "none";
+
+      try {
+        const res = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word })
+        });
+
+        if (!res.ok) throw new Error("Server fail.");
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+
+        video.src = url;
+        video.style.display = "block";
+        status.innerText = "Here you go:";
+      } catch (err) {
+        status.innerText = "Something broke.";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
+

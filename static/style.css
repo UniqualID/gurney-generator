@@ -1,0 +1,68 @@
+@font-face {
+	font-family: 'DuneRise';
+	src: url('Dune_Rise.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #111;
+	color: #eee;
+	font-family: 'Inter', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.container {
+	text-align: center;
+	max-width: 600px;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h1 {
+	font-family: 'DuneRise', serif;
+	font-size: 2.5rem;
+	margin-bottom: 0.5em;
+}
+
+input[type="text"] {
+	padding: 0.5rem;
+	font-size: 1rem;
+	width: 200px;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+button {
+	margin: 0.3rem;
+	padding: 0.6rem 1.2rem;
+	font-size: 1rem;
+	background-color: #444;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+button:hover {
+	background-color: #666;
+}
+
+.preset-buttons {
+	margin-bottom: 1rem;
+}
+
+code {
+	background-color: #222;
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
+	font-family: monospace;
+}
